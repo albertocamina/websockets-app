@@ -27,7 +27,6 @@ jobs:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         SECRET_ECHO: ${{ secrets.SECRET_ECHO }}
         RUN_TEST: ${{ secrets.RUN_TEST }}
-      if: env.RUN_TEST == 'yes'
       run: |
         echo "Comenzando las tareas de testing y despliegue"
         python -m venv env 
