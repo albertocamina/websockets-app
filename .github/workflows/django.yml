@@ -30,6 +30,7 @@ jobs:
       run: |
         echo "Comenzando las tareas de testing y despliegue"
         echo "${{ env.SECRET_KEY }}"
+        echo "${{ secrets.SECRET_KEY }}"
         cd app
         python -m pip install --upgrade pip
         pip install -r ../requirements.txt
