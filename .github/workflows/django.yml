@@ -11,20 +11,21 @@ jobs:
 
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 4
+      max-parallel: 1
       matrix:
         python-version: [3.7]
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Configuración de Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
+    - name: Instalar dependencias
       run: |
+        cd app
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Run Tests
+        pip install -r ../requirements.txt
+    - name: Lanzar test
       run: |
         python manage.py test
