@@ -7,25 +7,29 @@ on:
     branches: [ main ]
 
 jobs:
+
   build:
 
     runs-on: ubuntu-latest
+    environment: websockets-app-env
     strategy:
       max-parallel: 1
       matrix:
         python-version: [3.7]
-
     steps:
     - uses: actions/checkout@v2
     - name: Configuración de Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Instalar dependencias
+    - name: Instalar dependencias y pasar test
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        SECRET_ECHO: ${{ secrets.SECRET_ECHO }}
+        RUN_TEST: ${{ secrets.RUN_TEST }}
       run: |
-        cd app
+        echo "Comenzando las tareas de testing y despliegue"
         python -m pip install --upgrade pip
-        pip install -r ../requirements.txt
-    - name: Lanzar test
-      run: |
+        pip install -r requirements.txt
+        cd app
         python manage.py test
