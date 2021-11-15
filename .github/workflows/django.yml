@@ -30,10 +30,9 @@ jobs:
         SECRET_ECHO: ${{ secrets.SECRET_ECHO }}
       run: |
         echo "Comenzando las tareas de testing y despliegue"
-        echo "${{ env.SECRET_KEY }}"
-        echo "${{ secrets.SECRET_KEY }}"
-        echo "${{ secrets.SECRET_ECHO }}"
-        echo  "${{ env.SECRET_ECHO }}"
+        python3 -m venv env 
+        source env/bin/activate
+        export SECRET_KEY="${{ env.SECRET_KEY }}"
         cd app
         python -m pip install --upgrade pip
         pip install -r ../requirements.txt
