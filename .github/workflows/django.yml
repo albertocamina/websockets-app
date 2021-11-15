@@ -27,10 +27,13 @@ jobs:
     - name: Instalar dependencias y pasar test
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        SECRET_ECHO: ${{ secrets.SECRET_ECHO }}
       run: |
         echo "Comenzando las tareas de testing y despliegue"
         echo "${{ env.SECRET_KEY }}"
         echo "${{ secrets.SECRET_KEY }}"
+        echo "${{ secrets.SECRET_ECHO }}"
+        echo  "${{ env.SECRET_ECHO }}"
         cd app
         python -m pip install --upgrade pip
         pip install -r ../requirements.txt
