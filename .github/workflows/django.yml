@@ -26,6 +26,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Instalar dependencias y pasar test
       run: |
+        echo "Comenzando las tareas de testing y despliegue"
         echo '${{ env.SECRET_KEY }}'
         cd app
         python -m pip install --upgrade pip
