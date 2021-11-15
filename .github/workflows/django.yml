@@ -12,8 +12,6 @@ jobs:
 
     runs-on: ubuntu-latest
     environment: websockets-app-env
-    env:
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
     strategy:
       max-parallel: 1
       matrix:
@@ -28,6 +26,7 @@ jobs:
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         SECRET_ECHO: ${{ secrets.SECRET_ECHO }}
+      if: ${{ env.SECRET_ECHO }} == "1234"
       run: |
         echo "Comenzando las tareas de testing y despliegue"
         python3 -m venv env 
