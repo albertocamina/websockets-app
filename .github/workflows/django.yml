@@ -27,12 +27,12 @@ jobs:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         SECRET_ECHO: ${{ secrets.SECRET_ECHO }}
         RUN_TEST: ${{ secrets.RUN_TEST }}
-      if: env.RUN_TEST == yes
+      if: env.RUN_TEST == 'yes'
       run: |
         echo "Comenzando las tareas de testing y despliegue"
         python -m venv env 
         source env/bin/activate
-        export SECRET_KEY=${{ env.SECRET_KEY }}
+        export SECRET_KEY='${{ env.SECRET_KEY }}'
         cd app
         python -m pip install --upgrade pip
         pip install -r ../requirements.txt
