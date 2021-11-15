@@ -7,6 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
+
   build:
 
     runs-on: ubuntu-latest
@@ -28,4 +29,5 @@ jobs:
         pip install -r ../requirements.txt
     - name: Lanzar test
       run: |
+        cd app
         python manage.py test
