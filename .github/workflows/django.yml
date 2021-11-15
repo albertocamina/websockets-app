@@ -15,19 +15,15 @@ jobs:
       max-parallel: 1
       matrix:
         python-version: [3.7]
-
     steps:
     - uses: actions/checkout@v2
     - name: Configuración de Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Instalar dependencias
+    - name: Instalar dependencias y pasar test
       run: |
         cd app
         python -m pip install --upgrade pip
         pip install -r ../requirements.txt
-    - name: Lanzar test
-      run: |
-        cd app
         python manage.py test
