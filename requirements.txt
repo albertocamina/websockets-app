@@ -1,6 +1,14 @@
 django==3.1
 channels==3.0
 channels_redis==3.2
+django-crispy-forms
+easy-thumbnails
+django-image-cropping
+djangoajax
+django-select2
 psycopg2-binary
+django-cruds-adminlte
+six
 pandas
 numpy
+paho-mqtt
