@@ -39,6 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'django_select2',
+    'easy_thumbnails',
+    'image_cropping',
+    'django_ajax',
+    #'channels', 
+    
+    'cruds_adminlte',
+    'gestor_topics',
+    'widgets',
+    'dispositivos'
 ]
 
 MIDDLEWARE = [
@@ -56,7 +67,9 @@ ROOT_URLCONF = 'websockets_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join( BASE_DIR, "websockets_app/templates" ),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,6 +83,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'websockets_app.wsgi.application'
+#ASGI_APPLICATION = 'websockets_app.asgi.application'
 
 
 # Database
@@ -77,8 +91,12 @@ WSGI_APPLICATION = 'websockets_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE'    : 'django.db.backends.postgresql_psycopg2',
+        'NAME'      : 'postgres',
+        'USER'      : 'postgres',
+        'PASSWORD'  : 'postgres',
+        'HOST'      : 'localhost',
+        'PORT'      : '5432',
     }
 }
 
@@ -115,13 +133,47 @@ USE_L10N = True
 
 USE_TZ = True
 
+TIME_FORMAT= 'h:i A'
+
+DATETIME_FORMAT='m/d/Y H:i:s'
+
+DATE_FORMAT="m/d/Y"
+
+TIME_INPUT_FORMATS = ['%I:%M %p']
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configuracion de las layers
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+             "hosts": [('127.0.0.1', 6379)],
+        },
+        #"BACKEND": "channels.layers.InMemoryChannelLayer"
+    },
+}
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+IMAGE_CROPPING_JQUERY_URL = None
+
+INTERNAL_IPS = ('127.0.0.1',)
+
+# Configuracion de Easy Thumbnails
+from easy_thumbnails.conf import Settings as thumbnail_settings
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + thumbnail_settings.THUMBNAIL_PROCESSORS
+
+# URL para la redireccion del login
+LOGIN_REDIRECT_URL = 'home'
